@@ -155,6 +155,19 @@
             <div class="col-md-6">
                 <div class="card">
     <div class="card-body">
+        <div class="card-body">
+    <h5 class="card-title">Form Pertanyaan</h5>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
         <h5 class="card-title">Form Pertanyaan</h5>
 
         <form action="{{ route('question.store') }}" method="POST">

@@ -28,13 +28,13 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-
+        $request->validate([
         $data['nama']   = $request->nama;
         $data['email']  = $request->email;
         $data['pertanyaan']= $request->pertanyaan;
 
         return view('home-question-respone', $data);
-
+        	]);
     }
 
     /**
