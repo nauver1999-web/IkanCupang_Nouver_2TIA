@@ -7,65 +7,41 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Validasi data, lalu langsung pindah ke halaman respon dengan pesan info.
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
-        $data['nama']   = $request->nama;
-        $data['email']  = $request->email;
-        $data['pertanyaan']= $request->pertanyaan;
+            'nama'       => 'required|string|max:255',
+            'email'      => 'required|email',
+            'pertanyaan' => 'required|string',
+        ]);
+
+        // Simpan data di session supaya bisa dibaca halaman respon
+        session(['question_data' => [
+            'nama'       => $request->nama,
+            'email'      => $request->email,
+            'pertanyaan' => $request->pertanyaan,
+        ]]);
+
+        // Langsung ke halaman respon, info tampil di sana
+        return redirect()
+            ->route('question.respon')
+            ->with('info', 'Data berhasil dimasukkan');
+    }
+
+    /**
+     * Halaman respon (GET) - menampilkan data yang tadi dikirim.
+     */
+    public function respon()
+    {
+        $data = session('question_data');
+
+        // Kalau dibuka tanpa kirim form dulu, kembali ke home
+        if (!$data) {
+            return redirect('/home');
+        }
 
         return view('home-question-respone', $data);
-        	]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

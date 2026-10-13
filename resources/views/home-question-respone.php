@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>Terima Kasih</title>
@@ -41,6 +41,8 @@
             border-left: 5px solid #3E97FF;
             padding: 15px 20px;
             border-radius: 6px;
+            text-align: left;
+            white-space: pre-line;
         }
 
         .btn-primary {
@@ -52,20 +54,24 @@
 <body>
 
     <div class="thankyou-container">
-        <h2>Terima Kasih, BUDI! 🎉</h2>
+        @if (session('info'))
+            <div class="alert alert-success">{{ session('info') }}</div>
+        @endif
+
+        <h2>Terima Kasih, {{ $nama }}! 🎉</h2>
         <p class="lead">Pertanyaan Anda telah berhasil dikirim.</p>
 
         <blockquote>
             <strong>Pertanyaan Anda:</strong><br>
-            "{($Pertanyaan)}"
+            "{{ $pertanyaan }}"
         </blockquote>
 
         <p class="email-info mt-4">
-            Pertanyaan Anda akan segera kami tanggapi dan balas melalui email <strong>budi@gmail.com</strong>.<br><br>
+            Pertanyaan Anda akan segera kami tanggapi dan balas melalui email <strong>{{ $email }}</strong>.<br><br>
             Mohon cek kotak masuk atau folder spam Anda secara berkala.
         </p>
 
-        <a href="{{ url('/') }}" class="btn btn-primary mt-4">Kembali ke Beranda</a>
+        <a href="{{ url('/home') }}" class="btn btn-primary mt-4">Kembali ke Beranda</a>
     </div>
 
 </body>

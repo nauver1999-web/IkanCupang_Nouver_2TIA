@@ -168,6 +168,15 @@
         </div>
     @endif
 
+    @if (session('info'))
+    <div class="alert alert-info">
+        {{ session('info') }}
+        @if (session('redirect_to_respon'))
+            <br><small>Mengalihkan ke halaman respon...</small>
+        @endif
+    </div>
+@endif
+
         <h5 class="card-title">Form Pertanyaan</h5>
 
         <form action="{{ route('question.store') }}" method="POST">
@@ -262,6 +271,15 @@
             <p>&copy; {{date('Y')}} My Laravel App. All Rights Reserved.</p>
         </div>
     </footer>
+
+    @if (session('redirect_to_respon'))
+    <script>
+        // Tampilkan info 2 detik, lalu pindah ke halaman respon
+        setTimeout(function () {
+            window.location.href = "{{ route('question.respon') }}";
+        }, 2000);
+    </script>
+    @endif
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
