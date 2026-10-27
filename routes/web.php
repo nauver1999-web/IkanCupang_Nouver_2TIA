@@ -1,22 +1,32 @@
 <?php
 
+use App\Http\Controllers\{AuthController, BiodataController, DashboardController, GuestController, KeahlianController, PendidikanController, PengalamanController, UserController};
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PelangganController;
 
-Route::get('/', function () {
-    return view('welcome');
+// ===== Guest =====
+Route::get('/', [GuestController::class, 'home'])->name('home');
+Route::get('/tentang', [GuestController::class, 'about'])->name('about');
+Route::get('/cv', [GuestController::class, 'cv'])->name('cv');
+Route::get('/cv/{id}', [GuestController::class, 'cvDetail'])->name('cv.detail');
+Route::get('/kontak', [GuestController::class, 'kontak'])->name('kontak');
+
+// ===== Auth =====
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 });
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/home', [HomeController::class, 'index']);
+// ===== Admin =====
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::post('question/store', [QuestionController::class, 'store'])
-    ->name('question.store');
-Route::get('question/respon', [QuestionController::class, 'respon'])
-    ->name('question.respon');
+    Route::resource('biodata', BiodataController::class);
+    Route::resource('pendidikan', PendidikanController::class);
+    Route::resource('pengalaman', PengalamanController::class);
+    Route::resource('keahlian', KeahlianController::class);
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-Route::resource('pelanggan', PelangganController::class);
+    Route::resource('user', UserController::class);
+});
