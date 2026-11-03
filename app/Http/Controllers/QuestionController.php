@@ -7,41 +7,65 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     /**
-     * Validasi data, lalu langsung pindah ke halaman respon dengan pesan info.
+     * Display a listing of the resource.
      */
-    public function store(Request $request)
+    public function index()
     {
-        $request->validate([
-            'nama'       => 'required|string|max:255',
-            'email'      => 'required|email',
-            'pertanyaan' => 'required|string',
-        ]);
-
-        // Simpan data di session supaya bisa dibaca halaman respon
-        session(['question_data' => [
-            'nama'       => $request->nama,
-            'email'      => $request->email,
-            'pertanyaan' => $request->pertanyaan,
-        ]]);
-
-        // Langsung ke halaman respon, info tampil di sana
-        return redirect()
-            ->route('question.respon')
-            ->with('info', 'Data berhasil dimasukkan');
+        //
     }
 
     /**
-     * Halaman respon (GET) - menampilkan data yang tadi dikirim.
+     * Show the form for creating a new resource.
      */
-    public function respon()
+    public function create()
     {
-        $data = session('question_data');
+        //
+    }
 
-        // Kalau dibuka tanpa kirim form dulu, kembali ke home
-        if (!$data) {
-            return redirect('/home');
-        }
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // dd($request->all());
+        
+        $data['nama']       = $request->nama;
+        $data['email']      = $request->email;
+        $data['pertanyaan'] = $request->pertanyaan;
+       return redirect('/home')->with('info', 'Data berhasil dimasukkan!');
+        return view('home-question-respon', $data);
 
-        return view('home-question-respone', $data);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */ 
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
     }
 }

@@ -82,8 +82,8 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1 class="display-6 mb-2">Welcome Aboard!</h1>
-            <p class="lead mb-0">A simple and elegant app using Bootstrap 5 and Laravel Blade.</p>
+            <h1 class="display-6 mb-2">{{$username}}</h1>
+            <p class="lead mb-0">{{$last_login}}</p>
         </div>
     </section>
 
@@ -155,29 +155,24 @@
             <div class="col-md-6">
                 <div class="card">
     <div class="card-body">
-        <div class="card-body">
-  
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('info'))
-    <div class="alert alert-info">
-        {{ session('info') }}
-        @if (session('redirect_to_respon'))
-            <br><small>Mengalihkan ke halaman respon...</small>
-        @endif
-    </div>
-@endif
-
         <h5 class="card-title">Form Pertanyaan</h5>
+
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+        @endif
+
+
+        @if (session('info'))
+    <div class="alert alert-info">
+        {!! session('info') !!}
+    </div>
+        @endif
 
         <form action="{{ route('question.store') }}" method="POST">
             @csrf
@@ -271,15 +266,6 @@
             <p>&copy; {{date('Y')}} My Laravel App. All Rights Reserved.</p>
         </div>
     </footer>
-
-    @if (session('redirect_to_respon'))
-    <script>
-        // Tampilkan info 2 detik, lalu pindah ke halaman respon
-        setTimeout(function () {
-            window.location.href = "{{ route('question.respon') }}";
-        }, 2000);
-    </script>
-    @endif
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
