@@ -82,8 +82,8 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container">
-            <h1 class="display-6 mb-2">{{$username}}</h1>
-            <p class="lead mb-0">{{$last_login}}</p>
+            <h1 class="display-6 mb-2">Welcome Aboard!</h1>
+            <p class="lead mb-0">A simple and elegant app using Bootstrap 5 and Laravel Blade.</p>
         </div>
     </section>
 
@@ -156,23 +156,6 @@
                 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Form Pertanyaan</h5>
-
-        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-        @endif
-
-
-        @if (session('info'))
-    <div class="alert alert-info">
-        {!! session('info') !!}
-    </div>
-        @endif
 
         <form action="{{ route('question.store') }}" method="POST">
             @csrf

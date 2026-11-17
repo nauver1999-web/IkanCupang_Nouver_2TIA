@@ -27,14 +27,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        
-        $data['nama']       = $request->nama;
-        $data['email']      = $request->email;
-        $data['pertanyaan'] = $request->pertanyaan;
-       return redirect('/home')->with('info', 'Data berhasil dimasukkan!');
-        return view('home-question-respon', $data);
-
+      dd($request->all());
     }
 
     /**
@@ -47,7 +40,7 @@ class QuestionController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     */ 
+     */
     public function edit(string $id)
     {
         //
