@@ -51,8 +51,9 @@
                     </div>
                 @endif
 
-                <form action="{{ route('user.update', $dataUser->id) }}"
-                    method="POST">
+            <form action="{{ route('pelanggan.update', $dataPelanggan->pelanggan_id) }}" method="POST">
+
+
 
                     @csrf
                     @method('PUT')
@@ -69,7 +70,8 @@
                                     id="name"
                                     name="name"
                                     class="form-control"
-                                    value="{{ old('name', $dataUser->name) }}"
+                                   value="{{ old('name', $dataPelanggan->name) }}"
+
                                     required>
                             </div>
 
@@ -82,8 +84,8 @@
                                     id="email"
                                     name="email"
                                     class="form-control"
-                                    value="{{ old('email', $dataUser->email) }}"
-                                    required>
+                                   value="{{ old('email', $dataPelanggan->email) }}"
+
                             </div>
                         </div>
 
@@ -131,5 +133,6 @@
         </div>
     </div>
 </div>
+
 
 @endsection
